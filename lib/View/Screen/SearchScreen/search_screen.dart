@@ -25,7 +25,7 @@ class SearchScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 10.h),
-              _buildSearchBox(),
+              _buildSearchBox(controller),
               SizedBox(height: 30.h),
               _buildSectionHeader("QUICK SEARCH"),
               SizedBox(height: 15.h),
@@ -65,13 +65,14 @@ class SearchScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSearchBox() {
+  Widget _buildSearchBox(sc.SearchController controller) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFF0E2515), // Exact dark green background
-        borderRadius: BorderRadius.circular(35.r), // Fully rounded Pill shape
+        color: const Color(0xFF0E2515), // Matches user-updated dark green
+        borderRadius: BorderRadius.circular(35.r), // Pill shape
       ),
       child: TextField(
+        controller: controller.searchController,
         cursorColor: const Color(0xFF22C55E),
         style: GoogleFonts.montserrat(
           color: Colors.white,
@@ -81,7 +82,7 @@ class SearchScreen extends StatelessWidget {
         decoration: InputDecoration(
           hintText: 'Search Surah, Ayat, or Topics',
           hintStyle: GoogleFonts.montserrat(
-            color: const Color(0xFF8DA493).withOpacity(0.6), // Muted grey-green hint
+            color: const Color(0xFF8DA493).withOpacity(0.6),
             fontSize: 16.sp,
             fontWeight: FontWeight.w400,
           ),
@@ -89,7 +90,7 @@ class SearchScreen extends StatelessWidget {
             padding: EdgeInsets.only(left: 20.w, right: 12.w),
             child: Icon(
               Icons.search,
-              color: const Color(0xFF8DA493), // Matches image icon color
+              color: const Color(0xFF8DA493),
               size: 26.sp,
             ),
           ),
@@ -137,25 +138,32 @@ class SearchScreen extends StatelessWidget {
       spacing: 12.w,
       runSpacing: 12.h,
       children: controller.quickSearchItems.map((item) {
-        return Container(
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-          decoration: BoxDecoration(
-            color: const Color(0xFF0D2517), // Deep selection green
-            borderRadius: BorderRadius.circular(20.r),
-            border: Border.all(
-              color: Colors.white.withOpacity(0.05),
-              width: 1.w,
+        return Obx(() {
+          final isSelected = controller.selectedTag.value == item;
+          return GestureDetector(
+            onTap: () => controller.onTagSelected(item),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+              decoration: BoxDecoration(
+                color: isSelected ? const Color(0xFF22C55E).withOpacity(0.12) : const Color(0xFF0D2517),
+                borderRadius: BorderRadius.circular(20.r),
+                border: Border.all(
+                  color: isSelected ? const Color(0xFF22C55E).withOpacity(0.5) : Colors.white.withOpacity(0.05),
+                  width: 1.w,
+                ),
+              ),
+              child: Text(
+                item,
+                style: GoogleFonts.montserrat(
+                  color: isSelected ? Colors.white : const Color(0xFFB5C1B8),
+                  fontSize: 13.sp,
+                  fontWeight: isSelected ? FontWeight.w700 : FontWeight.w600,
+                ),
+              ),
             ),
-          ),
-          child: Text(
-            item,
-            style: GoogleFonts.montserrat(
-              color: const Color(0xFFB5C1B8), // Muted greyish white
-              fontSize: 13.sp,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        );
+          );
+        });
       }).toList(),
     );
   }
@@ -178,7 +186,7 @@ class SearchScreen extends StatelessWidget {
             child: Row(
               children: [
                 SvgPicture.asset(
-                  AppIcons.time, // Matches Time-Icons.svg
+                  AppIcons.time,
                   width: 20.w,
                   colorFilter: const ColorFilter.mode(
                     Color(0xFF7F9285),
@@ -189,7 +197,7 @@ class SearchScreen extends StatelessWidget {
                 Text(
                   item,
                   style: GoogleFonts.montserrat(
-                    color: const Color(0xFF8DA493), // Subtitle color
+                    color: const Color(0xFF8DA493),
                     fontSize: 15.sp,
                     fontWeight: FontWeight.w600,
                   ),
@@ -205,68 +213,72 @@ class SearchScreen extends StatelessWidget {
   Widget _buildDailyInspirationCard() {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(25.w),
       decoration: BoxDecoration(
-        color: const Color(0xFF0D2D1E), // Dark emerald green card
+        color: const Color(0xFF0E2515),
         borderRadius: BorderRadius.circular(25.r),
       ),
-      child: Stack(
-        children: [
-          // Background icon watermark
-          Positioned(
-            right: -20,
-            bottom: -20,
-            child: SvgPicture.asset(
-              AppIcons.book, // Using book icon as background
-              width: 100.w,
-              colorFilter: ColorFilter.mode(
-                Colors.white.withOpacity(0.04),
-                BlendMode.srcIn,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(25.r),
+        child: Stack(
+          children: [
+            // Background icon watermark (As requested with large offsets)
+            Positioned(
+              right: -35.w,
+              bottom: -50.h,
+              child: SvgPicture.asset(
+                AppIcons.bock, 
+                width: 145.w,
+                colorFilter: const ColorFilter.mode(
+                  Color(0xFF1B5E34), // Subtle highlight green
+                  BlendMode.srcIn,
+                ),
               ),
             ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Daily Inspiration",
-                style: GoogleFonts.montserrat(
-                  color: const Color(0xFF22C55E), // Exact green link
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              SizedBox(height: 12.h),
-              Text(
-                "\"So verily, with every difficulty, there is relief.\"",
-                style: GoogleFonts.montserrat(
-                  color: Colors.white70,
-                  fontSize: 14.sp,
-                  height: 1.5,
-                  fontWeight: FontWeight.w600,
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-              SizedBox(height: 20.h),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 10.h),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.08),
-                  borderRadius: BorderRadius.circular(15.r),
-                ),
-                child: Text(
-                  "EXPLORE SURAH AL-INSHIRAH",
-                  style: GoogleFonts.montserrat(
-                    color: const Color(0xFF7F9285),
-                    fontSize: 11.sp,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: 0.5,
+            Padding(
+              padding: EdgeInsets.all(25.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Daily Inspiration",
+                    style: GoogleFonts.montserrat(
+                      color: Colors.white,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
-                ),
+                  SizedBox(height: 12.h),
+                  Text(
+                    "\"So verily, with every difficulty, there is relief.\"",
+                    style: GoogleFonts.montserrat(
+                      color: Colors.white.withOpacity(0.9),
+                      fontSize: 14.sp,
+                      height: 1.5,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  SizedBox(height: 25.h),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 12.h),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(100.r),
+                    ),
+                    child: Text(
+                      "EXPLORE SURAH AL-INSHIRAH",
+                      style: GoogleFonts.montserrat(
+                        color: Colors.white,
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }

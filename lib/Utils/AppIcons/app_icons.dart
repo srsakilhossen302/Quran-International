@@ -9,6 +9,7 @@ class AppIcons {
   static const String book = 'assets/icons/Book_icons.svg';
   static const String save = 'assets/icons/Save-Icons.svg';
   static const String time = 'assets/icons/Time-Icons.svg';
+  static const String bock = 'assets/icons/Bock_icons.svg';
 
   // Navbar Icons
   static const String navHome = 'assets/icons/Home_Icons-navbar.svg';
