@@ -68,4 +68,11 @@ class HomeController extends GetxController
       ),
     ];
   }
+
+  Future<void> refreshData() async {
+    isLoading.value = true;
+    await Future.delayed(const Duration(seconds: 2));
+    _loadSurahs();
+    isLoading.value = false;
+  }
 }

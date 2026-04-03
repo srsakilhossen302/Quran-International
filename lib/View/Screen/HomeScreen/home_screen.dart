@@ -22,23 +22,30 @@ class HomeScreen extends StatelessWidget {
 
       appBar: _buildAppBar(),
 
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 10.h),
-              _buildSearchBar(),
-              SizedBox(height: 20.h),
-              _buildTabBar(controller),
-              SizedBox(height: 20.h),
-              _buildLastReadCard(),
-              SizedBox(height: 25.h),
-              _buildSurahList(controller),
-              SizedBox(height: 30.h),
-            ],
+      body: RefreshIndicator(
+        onRefresh: () => controller.refreshData(),
+        color: const Color(0xFF22C55E), // Progress color
+        backgroundColor: const Color(0xFF0D1E15), // Background of the circle
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(
+            parent: BouncingScrollPhysics(),
+          ), // Ensure it's always scrollable for drag down
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 10.h),
+                _buildSearchBar(),
+                SizedBox(height: 20.h),
+                _buildTabBar(controller),
+                SizedBox(height: 20.h),
+                _buildLastReadCard(),
+                SizedBox(height: 25.h),
+                _buildSurahList(controller),
+                SizedBox(height: 30.h),
+              ],
+            ),
           ),
         ),
       ),
