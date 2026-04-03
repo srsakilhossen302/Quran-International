@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../Utils/AppColors/app_colors.dart';
 import '../../../../Utils/AppIcons/app_icons.dart';
+import '../LanguageScreen/language_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -26,7 +27,10 @@ class _SplashScreenState extends State<SplashScreen>
     // Example: Navigate to next screen after animation
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        // TODO: Navigate to Home Screen
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const LanguageScreen()),
+        );
       }
     });
   }
