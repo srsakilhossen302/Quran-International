@@ -44,19 +44,27 @@ class BookmarkScreen extends StatelessWidget {
           SizedBox(width: 10.w),
         ],
       ),
-      body: Obx(() {
-        if (controller.isLoading.value) {
-          return const BookmarkSkeleton();
-        }
-        return ListView.builder(
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-          itemCount: controller.bookmarks.length,
-          itemBuilder: (context, index) {
-            final bookmark = controller.bookmarks[index];
-            return _buildBookmarkCard(bookmark);
-          },
-        );
-      }),
+      body: RefreshIndicator(
+        onRefresh: () => controller.refreshData(),
+        color: const Color(0xFF22C55E),
+        backgroundColor: const Color(0xFF0D1E15),
+        child: Obx(() {
+          if (controller.isLoading.value) {
+            return const BookmarkSkeleton();
+          }
+          return ListView.builder(
+            physics: const AlwaysScrollableScrollPhysics(
+              parent: BouncingScrollPhysics(),
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+            itemCount: controller.bookmarks.length,
+            itemBuilder: (context, index) {
+              final bookmark = controller.bookmarks[index];
+              return _buildBookmarkCard(bookmark);
+            },
+          );
+        }),
+      ),
       bottomNavigationBar: CustomBottomNavBar(
         currentIndex: 2, // Bookmarks index
         onTap: (index) {

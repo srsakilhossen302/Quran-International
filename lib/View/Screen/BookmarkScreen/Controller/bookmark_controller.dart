@@ -7,17 +7,23 @@ class BookmarkController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // Simulate loading for Facebook-style loader
-    Future.delayed(const Duration(seconds: 2), () {
-      isLoading.value = false;
-    });
+    // Initially load
+    refreshData();
   }
+
+  Future<void> refreshData() async {
+    isLoading.value = true;
+    await Future.delayed(const Duration(seconds: 2));
+    // No explicit re-loading of list for now, just toggling state
+    isLoading.value = false;
+  }
+
   final List<BookmarkAyah> bookmarks = [
     BookmarkAyah(
       id: 1,
       surahName: "Al-Baqarah",
       verseInfo: "Verse 255 (Ayat al-Kursi)",
-      arabicText: "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ...",
+      arabicText: "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْমٌ...",
       englishTranslation: "“Allah! There is no god but He, the Living, the Ever-Sustaining...”",
     ),
     BookmarkAyah(
