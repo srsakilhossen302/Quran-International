@@ -49,11 +49,8 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: CustomBottomNavBar(
-        currentIndex: 0,
-        onTap: (index) {
-          // Handle navigation
-        },
+      bottomNavigationBar: const CustomBottomNavBar(
+        selectedIndex: 0,
       ),
     );
   }

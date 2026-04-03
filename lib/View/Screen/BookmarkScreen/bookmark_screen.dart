@@ -65,11 +65,8 @@ class BookmarkScreen extends StatelessWidget {
           );
         }),
       ),
-      bottomNavigationBar: CustomBottomNavBar(
-        currentIndex: 2, // Bookmarks index
-        onTap: (index) {
-          // Handle navigation later
-        },
+      bottomNavigationBar: const CustomBottomNavBar(
+        selectedIndex: 2,
       ),
     );
   }
