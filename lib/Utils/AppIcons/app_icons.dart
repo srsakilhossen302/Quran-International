@@ -8,6 +8,7 @@ class AppIcons {
   // New Icons for Bookmark/Surah View
   static const String book = 'assets/icons/Book_icons.svg';
   static const String save = 'assets/icons/Save-Icons.svg';
+  static const String time = 'assets/icons/Time-Icons.svg';
 
   // Navbar Icons
   static const String navHome = 'assets/icons/Home_Icons-navbar.svg';
