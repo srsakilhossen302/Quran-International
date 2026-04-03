@@ -12,4 +12,24 @@ class SurahModel {
     required this.type,
     required this.verses,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'enName': enName,
+      'arName': arName,
+      'type': type,
+      'verses': verses,
+    };
+  }
+
+  factory SurahModel.fromMap(Map<String, dynamic> map) {
+    return SurahModel(
+      id: map['id'],
+      enName: map['enName'] ?? '',
+      arName: map['arName'] ?? '',
+      type: map['type'] ?? '',
+      verses: map['verses'] ?? 0,
+    );
+  }
 }

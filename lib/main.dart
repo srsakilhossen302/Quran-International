@@ -1,3 +1,4 @@
+import 'package:quran_international/service/connectivity_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,7 +6,9 @@ import 'package:quran_international/View/Screen/SplashScreen/splash_screen.dart'
 import 'package:quran_international/View/Screen/HomeScreen/home_screen.dart';
 import 'package:quran_international/View/Screen/BookmarkScreen/bookmark_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Get.put(ConnectivityService());
   runApp(const MyApp());
 }
 
