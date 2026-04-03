@@ -105,7 +105,9 @@ class HomeScreen extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF22C55E).withOpacity(0.1), // #22C55E 10% Drop Shadow
+            color: const Color(
+              0xFF22C55E,
+            ).withOpacity(0.1), // #22C55E 10% Drop Shadow
             blurRadius: 15.r,
             offset: const Offset(0, 0),
           ),
@@ -142,13 +144,16 @@ class HomeScreen extends StatelessWidget {
       child: TabBar(
         controller: controller.tabController,
         isScrollable: true,
-        tabAlignment: TabAlignment.start, // Align to the very start of the container
+        tabAlignment:
+            TabAlignment.start, // Align to the very start of the container
         padding: EdgeInsets.zero, // Remove default TabBar internal padding
         dividerColor: Colors.transparent, // Remove default divider
         indicatorColor: const Color(0xFF1B402C), // Dark green indicator
         indicatorWeight: 4.h,
         indicatorSize: TabBarIndicatorSize.label,
-        indicatorPadding: EdgeInsets.symmetric(horizontal: 2.w), // Slightly shorter indicator
+        indicatorPadding: EdgeInsets.symmetric(
+          horizontal: 2.w,
+        ), // Slightly shorter indicator
         labelColor: Colors.white,
         unselectedLabelColor: const Color(0xFF7F9285),
         labelStyle: GoogleFonts.montserrat(
@@ -184,7 +189,9 @@ class HomeScreen extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(20.r),
         border: Border.all(
-          color: const Color(0xFF22C55E).withOpacity(0.2), // Subtle Green Border
+          color: const Color(
+            0xFF22C55E,
+          ).withOpacity(0.2), // Subtle Green Border
           width: 1.2.w,
         ),
       ),
@@ -213,7 +220,9 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.flare,
-                    color: const Color(0xFF4EEB91), // More vibrant green like image
+                    color: const Color(
+                      0xFF4EEB91,
+                    ), // More vibrant green like image
                     size: 16.sp,
                   ),
                   SizedBox(width: 8.w),
@@ -267,11 +276,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: 10.w),
-                    Icon(
-                      Icons.arrow_forward,
-                      size: 18.sp,
-                      color: Colors.black,
-                    ),
+                    Icon(Icons.arrow_forward, size: 18.sp, color: Colors.black),
                   ],
                 ),
               ),
@@ -290,23 +295,30 @@ class HomeScreen extends StatelessWidget {
         itemCount: controller.surahs.length,
         itemBuilder: (context, index) {
           final surah = controller.surahs[index];
-          final bool isHighlighted = surah.id == 2; // Al-Baqarah is highlighted in the image
-          
+          final bool isHighlighted =
+              surah.id == 2; // Al-Baqarah is highlighted in the image
+
           return Container(
             margin: EdgeInsets.only(bottom: 12.h),
             width: 408.w,
             height: 82.h, // Specific height from Figma
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             decoration: BoxDecoration(
-              color: const Color(0xFF0A2E15).withOpacity(0.4), // #0A2E15 40% Fill
+              color: const Color(
+                0xFF0A2E15,
+              ).withOpacity(0.4), // #0A2E15 40% Fill
               borderRadius: BorderRadius.circular(24.r), // 24px Radius
               border: Border.all(
-                color: const Color(0xFF22C55E).withOpacity(0.2), // #22C55E 20% Border
+                color: const Color(
+                  0xFF22C55E,
+                ).withOpacity(0.2), // #22C55E 20% Border
                 width: 1.w,
               ),
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFF22C55E).withOpacity(0.1), // #22C55E 10% Shadow
+                  color: const Color(
+                    0xFF22C55E,
+                  ).withOpacity(0.1), // #22C55E 10% Shadow
                   blurRadius: 15.r,
                   offset: const Offset(0, 0),
                 ),
@@ -319,7 +331,8 @@ class HomeScreen extends StatelessWidget {
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center, // Center vertically
+                    mainAxisAlignment:
+                        MainAxisAlignment.center, // Center vertically
                     children: [
                       Row(
                         children: [
@@ -381,7 +394,9 @@ class HomeScreen extends StatelessWidget {
             'assets/icons/nambar-Icons.svg',
             width: 42.w,
             colorFilter: ColorFilter.mode(
-              isHighlighted ? AppColors.primaryGreen : const Color(0xFF7F9285).withOpacity(0.6),
+              isHighlighted
+                  ? AppColors.primaryGreen
+                  : const Color(0xFF7F9285).withOpacity(0.6),
               BlendMode.srcIn,
             ),
           ),
