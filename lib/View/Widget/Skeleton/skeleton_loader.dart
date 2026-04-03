@@ -75,3 +75,43 @@ class BookmarkSkeleton extends StatelessWidget {
     );
   }
 }
+
+class HighlightSkeleton extends StatelessWidget {
+  const HighlightSkeleton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+      itemCount: 4,
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: EdgeInsets.only(bottom: 20.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  SkeletonLoader(width: 48.w, height: 48.w, borderRadius: 24),
+                  SizedBox(width: 15.w),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SkeletonLoader(width: 150.w, height: 18.h),
+                        SizedBox(height: 8.h),
+                        SkeletonLoader(width: 100.w, height: 12.h),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20.h),
+              SkeletonLoader(width: double.infinity, height: 120.h, borderRadius: 25),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}

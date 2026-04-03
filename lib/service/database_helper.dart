@@ -19,8 +19,9 @@ class DatabaseHelper {
 
     return await openDatabase(
       path,
-      version: 1,
+      version: 2,
       onCreate: _createDB,
+      onUpgrade: _onUpgrade,
     );
   }
 
@@ -46,6 +47,37 @@ class DatabaseHelper {
         englishTranslation TEXT
       )
     ''');
+
+    // Create Highlights table
+    await db.execute('''
+      CREATE TABLE highlights (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        surahName TEXT,
+        reference TEXT,
+        date TEXT,
+        text TEXT,
+        colorValue INTEGER,
+        colorName TEXT
+      )
+    ''');
+  }
+
+  Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 2) {
+      // If highlights table was created in version 1 without colorName, we recreate it
+      await db.execute('DROP TABLE IF EXISTS highlights');
+      await db.execute('''
+        CREATE TABLE highlights (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          surahName TEXT,
+          reference TEXT,
+          date TEXT,
+          text TEXT,
+          colorValue INTEGER,
+          colorName TEXT
+        )
+      ''');
+    }
   }
 
   // SURAH OPERATIONS
@@ -68,6 +100,17 @@ class DatabaseHelper {
   Future<List<Map<String, dynamic>>> getBookmarks() async {
     final db = await instance.database;
     return await db.query('bookmarks');
+  }
+
+  // HIGHLIGHT OPERATIONS
+  Future<int> insertHighlight(Map<String, dynamic> highlight) async {
+    final db = await instance.database;
+    return await db.insert('highlights', highlight, conflictAlgorithm: ConflictAlgorithm.replace);
+  }
+
+  Future<List<Map<String, dynamic>>> getHighlights() async {
+    final db = await instance.database;
+    return await db.query('highlights');
   }
 
   Future close() async {

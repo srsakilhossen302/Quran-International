@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quran_international/View/Screen/SplashScreen/splash_screen.dart';
 import 'package:quran_international/View/Screen/HomeScreen/home_screen.dart';
 import 'package:quran_international/View/Screen/BookmarkScreen/bookmark_screen.dart';
+import 'package:quran_international/View/Screen/HighlightScreen/highlight_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
           getPages: [
             GetPage(name: '/home', page: () => const HomeScreen()),
             GetPage(name: '/bookmark', page: () => const BookmarkScreen()),
+            GetPage(name: '/highlights', page: () => const HighlightScreen()),
           ],
         );
       },
