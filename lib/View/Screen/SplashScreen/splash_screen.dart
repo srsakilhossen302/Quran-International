@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 7),
     )..forward();
 
     // Example: Navigate to next screen after animation
@@ -48,32 +48,50 @@ class _SplashScreenState extends State<SplashScreen>
           Positioned(
             top: size.height * 0.20,
             left: size.width * 0.20,
-            child: _buildDot(3, const Color(0xFF5AB678).withOpacity(0.6)), // Top-left small green dot
+            child: _buildDot(
+              3,
+              const Color(0xFF5AB678).withOpacity(0.6),
+            ), // Top-left small green dot
           ),
           Positioned(
             top: size.height * 0.30,
             right: size.width * 0.25,
-            child: _buildDot(5, const Color(0xFF5AB678).withOpacity(0.4)), // Top-right glowing green dot
+            child: _buildDot(
+              5,
+              const Color(0xFF5AB678).withOpacity(0.4),
+            ), // Top-right glowing green dot
           ),
           Positioned(
             top: size.height * 0.65,
             right: size.width * 0.30,
-            child: _buildDot(3, AppColors.primaryText.withOpacity(0.8)), // Mid-right sharp yellow dot
+            child: _buildDot(
+              3,
+              AppColors.primaryText.withOpacity(0.8),
+            ), // Mid-right sharp yellow dot
           ),
           Positioned(
             top: size.height * 0.75,
             left: size.width * 0.20,
-            child: _buildDot(2.5, const Color(0xFF5AB678).withOpacity(0.5)), // Mid-left green dot
+            child: _buildDot(
+              2.5,
+              const Color(0xFF5AB678).withOpacity(0.5),
+            ), // Mid-left green dot
           ),
           Positioned(
             bottom: size.height * 0.20,
             left: size.width * 0.15,
-            child: _buildStar(10, const Color(0xFF5AB678).withOpacity(0.5)), // Bottom-left star/sparkle
+            child: _buildStar(
+              10,
+              const Color(0xFF5AB678).withOpacity(0.5),
+            ), // Bottom-left star/sparkle
           ),
           Positioned(
             bottom: size.height * 0.17,
             right: size.width * 0.45,
-            child: _buildDot(3.5, const Color(0xFF5AB678).withOpacity(0.7)), // Bottom-mid green dot
+            child: _buildDot(
+              3.5,
+              const Color(0xFF5AB678).withOpacity(0.7),
+            ), // Bottom-mid green dot
           ),
 
           // Main Content
