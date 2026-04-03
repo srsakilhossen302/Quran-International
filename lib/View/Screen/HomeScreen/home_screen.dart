@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:quran_international/View/Widget/CustomBottomNavBar/custom_bottom_nav_bar.dart';
 
 import '../../../../Utils/AppColors/app_colors.dart';
 import 'Controller/home_controller.dart';
@@ -39,6 +40,12 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: CustomBottomNavBar(
+        currentIndex: 0,
+        onTap: (index) {
+          // Handle navigation
+        },
       ),
     );
   }
