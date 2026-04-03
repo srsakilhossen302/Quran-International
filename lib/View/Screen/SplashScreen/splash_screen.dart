@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:get/get.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../Utils/AppColors/app_colors.dart';
 import '../../../../Utils/AppIcons/app_icons.dart';
@@ -27,10 +29,7 @@ class _SplashScreenState extends State<SplashScreen>
     // Example: Navigate to next screen after animation
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const LanguageScreen()),
-        );
+        Get.offAll(() => const LanguageScreen());
       }
     });
   }
@@ -46,6 +45,7 @@ class _SplashScreenState extends State<SplashScreen>
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppColors.background,
+      resizeToAvoidBottomInset: false, // Prevents keyboard from pushing content
       body: Stack(
         children: [
           // Background Decorative Dots exactly matching reference image
@@ -100,98 +100,104 @@ class _SplashScreenState extends State<SplashScreen>
 
           // Main Content
           SafeArea(
-            child: Column(
-              children: [
-                const Spacer(flex: 3),
-
-                // Central PNG image containing logo, text, dots, glows, and shadows
-                Center(
-                  child: Image.asset(
-                    AppIcons.mainContentWrapperPng,
-                    // Automatically scales while maintaining proportions
-                    fit: BoxFit.contain,
-                  ),
-                ),
-
-                const Spacer(flex: 2),
-
-                // Progress Bar and Loading Text
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 40.0,
-                    vertical: 30.0,
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: SizedBox(
+                height: size.height - (MediaQuery.of(context).padding.top + MediaQuery.of(context).padding.bottom),
+                child: Column(
+                  children: [
+                    const Spacer(flex: 3),
+    
+                    // Central PNG image containing logo, text, dots, glows, and shadows
+                    Center(
+                      child: Image.asset(
+                        AppIcons.mainContentWrapperPng,
+                        // Automatically scales while maintaining proportions
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+    
+                    const Spacer(flex: 2),
+    
+                    // Progress Bar and Loading Text
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 40.0,
+                        vertical: 30.0,
+                      ),
+                      child: Column(
                         children: [
-                          Text(
-                            'LOADING...',
-                            style: GoogleFonts.montserrat(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              letterSpacing: 1.5,
-                              color: AppColors.primaryText,
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'LOADING...',
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w500,
+                                  letterSpacing: 1.5,
+                                  color: AppColors.primaryText,
+                                ),
+                              ),
+                              AnimatedBuilder(
+                                animation: _controller,
+                                builder: (context, child) {
+                                  return Text(
+                                    '${(_controller.value * 100).toInt()}%',
+                                    style: GoogleFonts.montserrat(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.primaryText,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ],
                           ),
+                          SizedBox(height: 8.h),
+                          // Custom Linear Progress
                           AnimatedBuilder(
                             animation: _controller,
                             builder: (context, child) {
-                              return Text(
-                                '${(_controller.value * 100).toInt()}%',
-                                style: GoogleFonts.montserrat(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.primaryText,
-                                ),
+                              return Stack(
+                                children: [
+                                  Container(
+                                    height: 4.h,
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.progressBackground,
+                                      borderRadius: BorderRadius.circular(2.r),
+                                    ),
+                                  ),
+                                  FractionallySizedBox(
+                                    alignment: Alignment.centerLeft,
+                                    widthFactor: _controller.value,
+                                    child: Container(
+                                      height: 4.h,
+                                      decoration: BoxDecoration(
+                                        color: AppColors.primaryText,
+                                        borderRadius: BorderRadius.circular(2.r),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: AppColors.primaryText
+                                                .withOpacity(0.5),
+                                            blurRadius: 4.r,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               );
                             },
                           ),
                         ],
                       ),
-                      const SizedBox(height: 8),
-                      // Custom Linear Progress
-                      AnimatedBuilder(
-                        animation: _controller,
-                        builder: (context, child) {
-                          return Stack(
-                            children: [
-                              Container(
-                                height: 4,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: AppColors.progressBackground,
-                                  borderRadius: BorderRadius.circular(2),
-                                ),
-                              ),
-                              FractionallySizedBox(
-                                alignment: Alignment.centerLeft,
-                                widthFactor: _controller.value,
-                                child: Container(
-                                  height: 4,
-                                  decoration: BoxDecoration(
-                                    color: AppColors.primaryText,
-                                    borderRadius: BorderRadius.circular(2),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: AppColors.primaryText
-                                            .withOpacity(0.5),
-                                        blurRadius: 4,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      ),
-                    ],
-                  ),
+                    ),
+                    SizedBox(height: 20.h),
+                  ],
                 ),
-                const SizedBox(height: 20),
-              ],
+              ),
             ),
           ),
         ],
@@ -201,16 +207,16 @@ class _SplashScreenState extends State<SplashScreen>
 
   Widget _buildDot(double size, Color color) {
     return Container(
-      width: size,
-      height: size,
+      width: size.w,
+      height: size.w,
       decoration: BoxDecoration(
         color: color,
         shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
             color: color.withOpacity(0.8),
-            blurRadius: size,
-            spreadRadius: size / 2,
+            blurRadius: size.r,
+            spreadRadius: (size / 2).r,
           ),
         ],
       ),
@@ -219,20 +225,20 @@ class _SplashScreenState extends State<SplashScreen>
 
   Widget _buildStar(double size, Color color) {
     return SizedBox(
-      width: size,
-      height: size,
+      width: size.w,
+      height: size.w,
       child: Stack(
         alignment: Alignment.center,
         children: [
-          Container(width: size, height: 1.5, color: color),
-          Container(width: 1.5, height: size, color: color),
+          Container(width: size.w, height: 1.5.h, color: color),
+          Container(width: 1.5.w, height: size.h, color: color),
           Transform.rotate(
             angle: 0.785, // ~45 degrees
-            child: Container(width: size * 0.7, height: 1.5, color: color),
+            child: Container(width: size.w * 0.7, height: 1.5.h, color: color),
           ),
           Transform.rotate(
             angle: 0.785,
-            child: Container(width: 1.5, height: size * 0.7, color: color),
+            child: Container(width: 1.5.w, height: size.h * 0.7, color: color),
           ),
         ],
       ),
