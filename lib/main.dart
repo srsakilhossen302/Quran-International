@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quran_international/View/Screen/SplashScreen/splash_screen.dart';
+import 'package:quran_international/View/Screen/HomeScreen/home_screen.dart';
+import 'package:quran_international/View/Screen/BookmarkScreen/bookmark_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,11 +21,15 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
-      title: 'Quran International',
-      theme: ThemeData(
-        useMaterial3: true,
-      ),
+          title: 'Quran International',
+          theme: ThemeData(
+            useMaterial3: true,
+          ),
           home: const SplashScreen(),
+          getPages: [
+            GetPage(name: '/home', page: () => const HomeScreen()),
+            GetPage(name: '/bookmark', page: () => const BookmarkScreen()),
+          ],
         );
       },
     );

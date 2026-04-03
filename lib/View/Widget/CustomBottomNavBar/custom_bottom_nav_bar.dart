@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,24 +27,34 @@ class CustomBottomNavBar extends StatelessWidget {
           ),
         ),
       ),
-      child: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: onTap,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: const Color(0xFF22C55E), // Active green
-        unselectedItemColor: const Color(0xFF7F9285).withOpacity(0.8), // Inactive muted color
-        selectedLabelStyle: GoogleFonts.montserrat(
-          fontSize: 10.sp,
-          fontWeight: FontWeight.w700,
-          letterSpacing: 0.5,
+      child: Theme(
+        data: Theme.of(context).copyWith(
+          splashColor: Colors.transparent, // Disable click splash light
+          highlightColor: Colors.transparent, // Disable click highlight
         ),
-        unselectedLabelStyle: GoogleFonts.montserrat(
-          fontSize: 10.sp,
-          fontWeight: FontWeight.w600,
-          letterSpacing: 0.5,
-        ),
+        child: BottomNavigationBar(
+          currentIndex: currentIndex,
+          onTap: (index) {
+            onTap(index);
+            // Unified Navigation Logic
+            if (index == 0) Get.offAllNamed('/home');
+            if (index == 2) Get.offAllNamed('/bookmark');
+          },
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: const Color(0xFF22C55E), // Active green
+          unselectedItemColor: const Color(0xFF7F9285).withOpacity(0.8), // Inactive muted color
+          selectedLabelStyle: GoogleFonts.montserrat(
+            fontSize: 10.sp,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 0.5,
+          ),
+          unselectedLabelStyle: GoogleFonts.montserrat(
+            fontSize: 10.sp,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0.5,
+          ),
         items: [
           _buildNavItem(
             icon: 'assets/icons/Home_Icons-navbar.svg',
@@ -71,6 +82,7 @@ class CustomBottomNavBar extends StatelessWidget {
             index: 4,
           ),
         ],
+        ),
       ),
     );
   }
