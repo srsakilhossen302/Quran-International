@@ -5,6 +5,7 @@ import '../Model/surah_model.dart';
 class HomeController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late TabController tabController;
+  final RxBool isLoading = true.obs; // Loader state
 
   // Observable list
   final surahs = <SurahModel>[].obs;
@@ -15,6 +16,10 @@ class HomeController extends GetxController
     // Initialize the TabController centrally in the controller
     tabController = TabController(length: 3, vsync: this);
     _loadSurahs();
+    // Simulate loading for Facebook-style loader
+    Future.delayed(const Duration(seconds: 2), () {
+      isLoading.value = false;
+    });
   }
 
   @override

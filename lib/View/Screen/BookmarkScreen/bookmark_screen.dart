@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:quran_international/Utils/AppIcons/app_icons.dart';
 import 'package:quran_international/View/Widget/CustomBottomNavBar/custom_bottom_nav_bar.dart';
+import 'package:quran_international/View/Widget/Skeleton/skeleton_loader.dart';
 
 import '../../../Utils/AppColors/app_colors.dart';
 import 'Controller/bookmark_controller.dart';
@@ -43,19 +44,23 @@ class BookmarkScreen extends StatelessWidget {
           SizedBox(width: 10.w),
         ],
       ),
-      body: Obx(() => ListView.builder(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-            itemCount: controller.bookmarks.length,
-            itemBuilder: (context, index) {
-              final bookmark = controller.bookmarks[index];
-              return _buildBookmarkCard(bookmark);
-            },
-          )),
+      body: Obx(() {
+        if (controller.isLoading.value) {
+          return const BookmarkSkeleton();
+        }
+        return ListView.builder(
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+          itemCount: controller.bookmarks.length,
+          itemBuilder: (context, index) {
+            final bookmark = controller.bookmarks[index];
+            return _buildBookmarkCard(bookmark);
+          },
+        );
+      }),
       bottomNavigationBar: CustomBottomNavBar(
         currentIndex: 2, // Bookmarks index
         onTap: (index) {
-          if (index == 0) Get.offNamed('/home');
-          // Other navigation handled centrally in actual app logic
+          // Handle navigation later
         },
       ),
     );

@@ -2,6 +2,16 @@ import 'package:get/get.dart';
 import '../Model/bookmark_model.dart';
 
 class BookmarkController extends GetxController {
+  final RxBool isLoading = true.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    // Simulate loading for Facebook-style loader
+    Future.delayed(const Duration(seconds: 2), () {
+      isLoading.value = false;
+    });
+  }
   final List<BookmarkAyah> bookmarks = [
     BookmarkAyah(
       id: 1,
