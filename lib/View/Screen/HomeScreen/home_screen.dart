@@ -17,7 +17,9 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.background,
+
       appBar: _buildAppBar(),
+
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Padding(
@@ -45,6 +47,8 @@ class HomeScreen extends StatelessWidget {
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
+      scrolledUnderElevation: 0, // Disable color change on scroll
+      surfaceTintColor: Colors.transparent, // Disable surface tint
       leadingWidth: 70.w,
       leading: Padding(
         padding: EdgeInsets.only(left: 20.w),
