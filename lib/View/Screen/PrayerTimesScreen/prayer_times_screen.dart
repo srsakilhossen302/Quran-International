@@ -145,15 +145,6 @@ class PrayerTimesScreen extends StatelessWidget {
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          // Background Decorative Arches
-          Positioned(
-            right: -50.w,
-            bottom: -50.h,
-            child: Opacity(
-              opacity: 0.08,
-              child: SvgPicture.asset(AppIcons.mainContentWrapper, width: 250.w),
-            ),
-          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
