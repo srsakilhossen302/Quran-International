@@ -8,6 +8,8 @@ import 'package:quran_international/View/Screen/BookmarkScreen/bookmark_screen.d
 import 'package:quran_international/View/Screen/HighlightScreen/highlight_screen.dart';
 import 'package:quran_international/View/Screen/SearchScreen/search_screen.dart';
 
+import 'package:quran_international/Utils/AppColors/app_colors.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Get.put(ConnectivityService());
@@ -29,7 +31,14 @@ class MyApp extends StatelessWidget {
           title: 'Quran International',
           theme: ThemeData(
             useMaterial3: true,
+            scaffoldBackgroundColor: AppColors.background, // Fixed white flash
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color(0xFF22C55E),
+              brightness: Brightness.dark,
+            ),
           ),
+          defaultTransition: Transition.fade,
+          transitionDuration: const Duration(milliseconds: 200),
           home: const SplashScreen(),
           getPages: [
             GetPage(name: '/home', page: () => const HomeScreen()),
