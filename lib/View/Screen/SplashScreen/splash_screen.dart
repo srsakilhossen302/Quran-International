@@ -103,11 +103,14 @@ class _SplashScreenState extends State<SplashScreen>
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: SizedBox(
-                height: size.height - (MediaQuery.of(context).padding.top + MediaQuery.of(context).padding.bottom),
+                height:
+                    size.height -
+                    (MediaQuery.of(context).padding.top +
+                        MediaQuery.of(context).padding.bottom),
                 child: Column(
                   children: [
                     const Spacer(flex: 3),
-    
+
                     // Central PNG image containing logo, text, dots, glows, and shadows
                     Center(
                       child: Image.asset(
@@ -116,9 +119,9 @@ class _SplashScreenState extends State<SplashScreen>
                         fit: BoxFit.contain,
                       ),
                     ),
-    
+
                     const Spacer(flex: 2),
-    
+
                     // Progress Bar and Loading Text
                     Padding(
                       padding: const EdgeInsets.symmetric(
@@ -176,7 +179,9 @@ class _SplashScreenState extends State<SplashScreen>
                                       height: 4.h,
                                       decoration: BoxDecoration(
                                         color: AppColors.primaryText,
-                                        borderRadius: BorderRadius.circular(2.r),
+                                        borderRadius: BorderRadius.circular(
+                                          2.r,
+                                        ),
                                         boxShadow: [
                                           BoxShadow(
                                             color: AppColors.primaryText

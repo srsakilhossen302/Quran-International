@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,29 +19,37 @@ class SearchScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: _buildAppBar(),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 10.h),
-              _buildSearchBox(controller),
-              SizedBox(height: 30.h),
-              _buildSectionHeader("QUICK SEARCH"),
-              SizedBox(height: 15.h),
-              _buildQuickSearchGrid(controller),
-              SizedBox(height: 35.h),
-              _buildSectionHeaderWithClear("RECENT SEARCHES", controller),
-              SizedBox(height: 15.h),
-              _buildRecentSearchList(controller),
-              SizedBox(height: 35.h),
-              _buildDailyInspirationCard(),
-              SizedBox(height: 30.h),
-            ],
-          ),
-        ),
-      ),
+      body: Obx(() {
+        if (controller.searchQuery.value.isEmpty) {
+          return SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 10.h),
+                  _buildSearchBox(controller),
+                  SizedBox(height: 30.h),
+                  _buildSectionHeader("QUICK SEARCH"),
+                  SizedBox(height: 15.h),
+                  _buildQuickSearchGrid(controller),
+                  SizedBox(height: 35.h),
+                  _buildSectionHeaderWithClear("RECENT SEARCHES", controller),
+                  SizedBox(height: 15.h),
+                  _buildRecentSearchList(controller),
+                  SizedBox(height: 35.h),
+                  _buildDailyInspirationCard(),
+                  SizedBox(height: 30.h),
+                ],
+              ),
+            ),
+          );
+        } else if (controller.isLoading.value) {
+          return _buildShimmerResults(controller);
+        } else {
+          return _buildSearchResults(controller);
+        }
+      }),
       bottomNavigationBar: const CustomBottomNavBar(selectedIndex: 1),
     );
   }
@@ -68,34 +77,40 @@ class SearchScreen extends StatelessWidget {
   Widget _buildSearchBox(sc.SearchController controller) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFF0E2515), // Matches user-updated dark green
-        borderRadius: BorderRadius.circular(35.r), // Pill shape
+        color: const Color(0xFF0E2515), // Deep green card color
+        borderRadius: BorderRadius.circular(35.r),
       ),
       child: TextField(
         controller: controller.searchController,
-        cursorColor: const Color(0xFF22C55E),
+        cursorColor: AppColors.primaryText,
         style: GoogleFonts.montserrat(
           color: Colors.white,
-          fontSize: 16.sp,
-          letterSpacing: 0.2,
+          fontSize: 15.sp,
+          fontWeight: FontWeight.w500,
         ),
         decoration: InputDecoration(
-          hintText: 'Search Surah, Ayat, or Topics',
+          hintText: 'Mercy',
           hintStyle: GoogleFonts.montserrat(
-            color: const Color(0xFF8DA493).withOpacity(0.6),
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w400,
+            color: const Color(0xFF8DA493).withOpacity(0.5),
+            fontSize: 15.sp,
           ),
-          prefixIcon: Padding(
-            padding: EdgeInsets.only(left: 20.w, right: 12.w),
-            child: Icon(
-              Icons.search,
-              color: const Color(0xFF8DA493),
-              size: 26.sp,
-            ),
+          prefixIcon: Icon(
+            Icons.search_rounded,
+            color: const Color(0xFF8DA493),
+            size: 24.sp,
           ),
+          suffixIcon: controller.searchQuery.isNotEmpty
+              ? IconButton(
+                  icon: Icon(
+                    Icons.cancel,
+                    color: const Color(0xFF8DA493).withOpacity(0.8),
+                    size: 24.sp,
+                  ),
+                  onPressed: () => controller.clearSearch(),
+                )
+              : null,
           border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(vertical: 18.h),
+          contentPadding: EdgeInsets.symmetric(vertical: 18.h, horizontal: 20.w),
         ),
       ),
     );
@@ -165,6 +180,223 @@ class SearchScreen extends StatelessWidget {
           );
         });
       }).toList(),
+    );
+  }
+
+  Widget _buildShimmerResults(sc.SearchController controller) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: _buildSearchBox(controller),
+        ),
+        SizedBox(height: 30.h),
+        Expanded(
+          child: ListView.builder(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            itemCount: 3,
+            itemBuilder: (context, index) {
+              return Shimmer.fromColors(
+                baseColor: const Color(0xFF0E2515),
+                highlightColor: const Color(0xFF1F4129),
+                period: const Duration(milliseconds: 1500),
+                child: Container(
+                  margin: EdgeInsets.only(bottom: 20.h),
+                  padding: EdgeInsets.all(22.w),
+                  decoration: BoxDecoration(
+                    color: Colors.white, // Color doesn't matter much for shimmer
+                    borderRadius: BorderRadius.circular(18.r),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(width: 120.w, height: 16.h, color: Colors.white),
+                              SizedBox(height: 8.h),
+                              Container(width: 80.w, height: 10.h, color: Colors.white),
+                            ],
+                          ),
+                          Container(width: 26.w, height: 26.h, color: Colors.white),
+                        ],
+                      ),
+                      SizedBox(height: 30.h),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Container(width: 200.w, height: 22.h, color: Colors.white),
+                      ),
+                      SizedBox(height: 25.h),
+                      Container(width: double.infinity, height: 13.h, color: Colors.white),
+                      SizedBox(height: 8.h),
+                      Container(width: 150.w, height: 13.h, color: Colors.white),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSearchResults(sc.SearchController controller) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: _buildSearchBox(controller),
+        ),
+        SizedBox(height: 20.h),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: Text(
+            "${controller.searchResults.length} Results found",
+            style: GoogleFonts.montserrat(
+              color: const Color(0xFF7F9285),
+              fontSize: 13.sp,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+        SizedBox(height: 15.h),
+        Expanded(
+          child: ListView.builder(
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+            itemCount: controller.searchResults.length,
+            itemBuilder: (context, index) {
+              final result = controller.searchResults[index];
+              return _buildResultCard(index, result, controller);
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildResultCard(int index, Map<String, dynamic> result, sc.SearchController controller) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 20.h),
+      padding: EdgeInsets.all(22.w),
+      decoration: BoxDecoration(
+        color: const Color(0xFF0E2515), // Matching cards from UI
+        borderRadius: BorderRadius.circular(18.r),
+        border: Border.all(
+          color: Colors.white.withOpacity(0.02),
+          width: 0.5.w,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    result['surah'],
+                    style: GoogleFonts.montserrat(
+                      color: Colors.white,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  SizedBox(height: 4.h),
+                  Text(
+                    "SURAH ${result['surahNo']} : AYAH ${result['ayahNo']}",
+                    style: GoogleFonts.montserrat(
+                      color: const Color(0xFF7F9285),
+                      fontSize: 11.sp,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 0.5,
+                    ),
+                  ),
+                ],
+              ),
+              GestureDetector(
+                onTap: () => controller.toggleBookmark(index),
+                child: Icon(
+                  result['isBookmarked'] ? Icons.bookmark : Icons.bookmark_border,
+                  color: result['isBookmarked'] ? AppColors.primaryText : const Color(0xFF1B5E34),
+                  size: 26.sp,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 25.h),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              result['arabic'],
+              style: GoogleFonts.amiri( // Using Amiri for elegant Arabic
+                color: Colors.white,
+                fontSize: 22.sp,
+                height: 1.8,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.right,
+            ),
+          ),
+          SizedBox(height: 20.h),
+          _highlightedText(result['translation'], controller.searchQuery.value),
+        ],
+      ),
+    );
+  }
+
+  Widget _highlightedText(String text, String query) {
+    if (query.isEmpty || !text.toLowerCase().contains(query.toLowerCase())) {
+      return Text(
+        text,
+        style: GoogleFonts.montserrat(
+          color: const Color(0xFF8DA493),
+          fontSize: 13.sp,
+          height: 1.5,
+        ),
+      );
+    }
+
+    final String lowerText = text.toLowerCase();
+    final String lowerQuery = query.toLowerCase();
+    final List<TextSpan> spans = [];
+
+    int start = 0;
+    while (true) {
+      final int index = lowerText.indexOf(lowerQuery, start);
+      if (index == -1) {
+        spans.add(TextSpan(text: text.substring(start)));
+        break;
+      }
+
+      if (index > start) {
+        spans.add(TextSpan(text: text.substring(start, index)));
+      }
+
+      spans.add(TextSpan(
+        text: text.substring(index, index + query.length),
+        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      ));
+
+      start = index + query.length;
+    }
+
+    return RichText(
+      text: TextSpan(
+        style: GoogleFonts.montserrat(
+          color: const Color(0xFF8DA493),
+          fontSize: 13.sp,
+          height: 1.5,
+        ),
+        children: spans,
+      ),
     );
   }
 
