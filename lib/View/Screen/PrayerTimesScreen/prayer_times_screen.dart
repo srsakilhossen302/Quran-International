@@ -119,7 +119,6 @@ class PrayerTimesScreen extends StatelessWidget {
   Widget _buildNextPrayerCard() {
     return Container(
       width: double.infinity,
-      height: 196.h,
       padding: EdgeInsets.all(32.w),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
@@ -157,7 +156,7 @@ class PrayerTimesScreen extends StatelessWidget {
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -196,6 +195,7 @@ class PrayerTimesScreen extends StatelessWidget {
                   ),
                 ],
               ),
+              SizedBox(height: 40.h),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
