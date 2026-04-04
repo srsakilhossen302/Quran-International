@@ -27,7 +27,7 @@ class CustomBottomNavBar extends StatelessWidget {
         Get.offAllNamed('/highlights');
         break;
       case 4:
-        // Future route: Settings
+        Get.offAllNamed('/settings');
         break;
     }
   }

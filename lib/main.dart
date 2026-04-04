@@ -7,6 +7,7 @@ import 'package:quran_international/View/Screen/HomeScreen/home_screen.dart';
 import 'package:quran_international/View/Screen/BookmarkScreen/bookmark_screen.dart';
 import 'package:quran_international/View/Screen/HighlightScreen/highlight_screen.dart';
 import 'package:quran_international/View/Screen/SearchScreen/search_screen.dart';
+import 'package:quran_international/View/Screen/SettingsScreen/settings_screen.dart';
 
 import 'package:quran_international/Utils/AppColors/app_colors.dart';
 
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
             GetPage(name: '/search', page: () => const SearchScreen()),
             GetPage(name: '/bookmark', page: () => const BookmarkScreen()),
             GetPage(name: '/highlights', page: () => const HighlightScreen()),
+            GetPage(name: '/settings', page: () => const SettingsScreen()),
           ],
         );
       },
