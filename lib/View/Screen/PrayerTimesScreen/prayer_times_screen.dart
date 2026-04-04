@@ -37,7 +37,11 @@ class PrayerTimesScreen extends StatelessWidget {
               SizedBox(height: 5.h),
               Row(
                 children: [
-                  Icon(Icons.location_on_outlined, color: const Color(0xFF8DA493), size: 14.sp),
+                  Icon(
+                    Icons.location_on_outlined,
+                    color: const Color(0xFF8DA493),
+                    size: 14.sp,
+                  ),
                   SizedBox(width: 4.w),
                   Text(
                     'Dhaka, Bangladesh',
@@ -107,10 +111,14 @@ class PrayerTimesScreen extends StatelessWidget {
                 color: const Color(0xFF22C55E).withOpacity(0.2),
                 blurRadius: 10,
                 spreadRadius: 2,
-              )
+              ),
             ],
           ),
-          child: Icon(Icons.notifications_none, color: const Color(0xFF22C55E), size: 24.sp),
+          child: Icon(
+            Icons.notifications_none,
+            color: const Color(0xFF22C55E),
+            size: 24.sp,
+          ),
         ),
       ],
     );
@@ -135,10 +143,12 @@ class PrayerTimesScreen extends StatelessWidget {
             color: const Color(0xFFA2D1BB).withOpacity(0.1), // 10% Drop shadow
             blurRadius: 20,
             offset: const Offset(0, 0),
-          )
+          ),
         ],
         border: Border.all(
-          color: const Color(0xFFA2D1BB).withOpacity(0.3), // Simulating inner shadow/highlight
+          color: const Color(
+            0xFFA2D1BB,
+          ).withOpacity(0.3), // Simulating inner shadow/highlight
           width: 0.5.w,
         ),
       ),
@@ -201,7 +211,10 @@ class PrayerTimesScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 15.h),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16.w,
+                      vertical: 10.h,
+                    ),
                     decoration: BoxDecoration(
                       color: const Color(0xFF0D1D13).withOpacity(0.1),
                       borderRadius: BorderRadius.circular(100.r),
@@ -209,7 +222,11 @@ class PrayerTimesScreen extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.access_time, size: 16.sp, color: const Color(0xFF0D1D13)),
+                        Icon(
+                          Icons.access_time,
+                          size: 16.sp,
+                          color: const Color(0xFF0D1D13),
+                        ),
                         SizedBox(width: 8.w),
                         Text(
                           "in 2h 15m",
@@ -236,7 +253,7 @@ class PrayerTimesScreen extends StatelessWidget {
       children: controller.prayers.map((prayer) {
         final prayerName = prayer['name'] as String;
         final prayerTime = prayer['time'] as String;
-        
+
         return Container(
           margin: EdgeInsets.only(bottom: 12.h),
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
@@ -255,7 +272,10 @@ class PrayerTimesScreen extends StatelessWidget {
                 child: SvgPicture.asset(
                   _getPrayerIcon(prayerName),
                   width: 22.w,
-                  colorFilter: const ColorFilter.mode(const Color(0xFF22C55E), BlendMode.srcIn),
+                  colorFilter: const ColorFilter.mode(
+                    const Color(0xFF22C55E),
+                    BlendMode.srcIn,
+                  ),
                 ),
               ),
               SizedBox(width: 18.w),
@@ -283,14 +303,16 @@ class PrayerTimesScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Obx(() => Switch(
-                value: controller.prayerStates[prayerName] ?? false,
-                onChanged: (val) => controller.togglePrayer(prayerName),
-                activeColor: const Color(0xFF22C55E),
-                activeTrackColor: const Color(0xFF22C55E).withOpacity(0.3),
-                inactiveThumbColor: const Color(0xFF8DA493),
-                inactiveTrackColor: Colors.white.withOpacity(0.1),
-              )),
+              Obx(
+                () => Switch(
+                  value: controller.prayerStates[prayerName] ?? false,
+                  onChanged: (val) => controller.togglePrayer(prayerName),
+                  activeColor: const Color(0xFF22C55E),
+                  activeTrackColor: const Color(0xFF22C55E).withOpacity(0.3),
+                  inactiveThumbColor: const Color(0xFF8DA493),
+                  inactiveTrackColor: Colors.white.withOpacity(0.1),
+                ),
+              ),
             ],
           ),
         );
@@ -312,7 +334,14 @@ class PrayerTimesScreen extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(AppIcons.iconSound, width: 22.w, colorFilter: const ColorFilter.mode(const Color(0xFF22C55E), BlendMode.srcIn)),
+            SvgPicture.asset(
+              AppIcons.iconSound,
+              width: 22.w,
+              colorFilter: const ColorFilter.mode(
+                const Color(0xFF22C55E),
+                BlendMode.srcIn,
+              ),
+            ),
             SizedBox(width: 12.w),
             Text(
               "Change Adhan Sound",
@@ -331,33 +360,46 @@ class PrayerTimesScreen extends StatelessWidget {
   Widget _buildQuoteSection() {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(30.w),
+      padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 45.h),
       decoration: BoxDecoration(
-        color: const Color(0xFF0D1D13).withOpacity(0.4),
-        borderRadius: BorderRadius.circular(30.r),
+        color: const Color.fromARGB(
+          255,
+          13,
+          44,
+          28,
+        ), // Deep dark green from screenshot
+        borderRadius: BorderRadius.circular(40.r),
       ),
       child: Column(
         children: [
-          SvgPicture.asset(AppIcons.iconStar, width: 24.w, colorFilter: const ColorFilter.mode(const Color(0xFFFFD700), BlendMode.srcIn)),
-          SizedBox(height: 25.h),
+          SvgPicture.asset(
+            AppIcons.iconStar,
+            width: 22.w,
+            colorFilter: const ColorFilter.mode(
+              Color(0xFFFFD54F),
+              BlendMode.srcIn,
+            ),
+          ),
+          SizedBox(height: 35.h),
           Text(
             '"The most beloved of deeds to Allah is prayer at its proper time."',
             textAlign: TextAlign.center,
             style: GoogleFonts.amiri(
-              color: const Color(0xFFB5C1B8),
-              fontSize: 18.sp,
+              color: const Color(0xFFB5C1B8), // Soft muted white/green
+              fontSize: 20.sp,
               fontStyle: FontStyle.italic,
               height: 1.6,
+              fontWeight: FontWeight.w500,
             ),
           ),
-          SizedBox(height: 15.h),
+          SizedBox(height: 25.h),
           Text(
             'SAHIH BUKHARI',
             style: GoogleFonts.montserrat(
-              color: const Color(0xFF328A44),
-              fontSize: 10.sp,
+              color: const Color(0xFF5A705E), // Muted dark green
+              fontSize: 11.sp,
               fontWeight: FontWeight.w700,
-              letterSpacing: 1.2,
+              letterSpacing: 2.5,
             ),
           ),
         ],
