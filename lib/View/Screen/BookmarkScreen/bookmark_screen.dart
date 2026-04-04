@@ -36,7 +36,7 @@ class BookmarkScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.search, color: Colors.white),
-            onPressed: () {},
+            onPressed: () => Get.toNamed('/search'),
           ),
           SizedBox(width: 10.w),
         ],
