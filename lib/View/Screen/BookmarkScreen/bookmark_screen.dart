@@ -23,7 +23,10 @@ class BookmarkScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         scrolledUnderElevation: 0,
-        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: const Icon(Icons.menu, color: Colors.white),
+          onPressed: () {},
+        ),
         title: Text(
           'Bookmarks',
           style: GoogleFonts.montserrat(

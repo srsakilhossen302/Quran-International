@@ -108,7 +108,10 @@ class SearchScreen extends StatelessWidget {
                 )
               : null,
           border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(vertical: 18.h, horizontal: 20.w),
+          contentPadding: EdgeInsets.symmetric(
+            vertical: 18.h,
+            horizontal: 20.w,
+          ),
         ),
       ),
     );
@@ -126,7 +129,10 @@ class SearchScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSectionHeaderWithClear(String title, sc.SearchController controller) {
+  Widget _buildSectionHeaderWithClear(
+    String title,
+    sc.SearchController controller,
+  ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -159,10 +165,14 @@ class SearchScreen extends StatelessWidget {
               duration: const Duration(milliseconds: 200),
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
               decoration: BoxDecoration(
-                color: isSelected ? const Color(0xFF22C55E).withOpacity(0.12) : const Color(0xFF0D2517),
+                color: isSelected
+                    ? const Color(0xFF22C55E).withOpacity(0.12)
+                    : const Color(0xFF0D2517),
                 borderRadius: BorderRadius.circular(20.r),
                 border: Border.all(
-                  color: isSelected ? const Color(0xFF22C55E).withOpacity(0.5) : Colors.white.withOpacity(0.05),
+                  color: isSelected
+                      ? const Color(0xFF22C55E).withOpacity(0.5)
+                      : Colors.white.withOpacity(0.05),
                   width: 1.w,
                 ),
               ),
@@ -203,7 +213,8 @@ class SearchScreen extends StatelessWidget {
                   margin: EdgeInsets.only(bottom: 20.h),
                   padding: EdgeInsets.all(22.w),
                   decoration: BoxDecoration(
-                    color: Colors.white, // Color doesn't matter much for shimmer
+                    color:
+                        Colors.white, // Color doesn't matter much for shimmer
                     borderRadius: BorderRadius.circular(18.r),
                   ),
                   child: Column(
@@ -215,23 +226,47 @@ class SearchScreen extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(width: 120.w, height: 16.h, color: Colors.white),
+                              Container(
+                                width: 120.w,
+                                height: 16.h,
+                                color: Colors.white,
+                              ),
                               SizedBox(height: 8.h),
-                              Container(width: 80.w, height: 10.h, color: Colors.white),
+                              Container(
+                                width: 80.w,
+                                height: 10.h,
+                                color: Colors.white,
+                              ),
                             ],
                           ),
-                          Container(width: 26.w, height: 26.h, color: Colors.white),
+                          Container(
+                            width: 26.w,
+                            height: 26.h,
+                            color: Colors.white,
+                          ),
                         ],
                       ),
                       SizedBox(height: 30.h),
                       Align(
                         alignment: Alignment.centerRight,
-                        child: Container(width: 200.w, height: 22.h, color: Colors.white),
+                        child: Container(
+                          width: 200.w,
+                          height: 22.h,
+                          color: Colors.white,
+                        ),
                       ),
                       SizedBox(height: 25.h),
-                      Container(width: double.infinity, height: 13.h, color: Colors.white),
+                      Container(
+                        width: double.infinity,
+                        height: 13.h,
+                        color: Colors.white,
+                      ),
                       SizedBox(height: 8.h),
-                      Container(width: 150.w, height: 13.h, color: Colors.white),
+                      Container(
+                        width: 150.w,
+                        height: 13.h,
+                        color: Colors.white,
+                      ),
                     ],
                   ),
                 ),
@@ -278,17 +313,18 @@ class SearchScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildResultCard(int index, Map<String, dynamic> result, sc.SearchController controller) {
+  Widget _buildResultCard(
+    int index,
+    Map<String, dynamic> result,
+    sc.SearchController controller,
+  ) {
     return Container(
       margin: EdgeInsets.only(bottom: 20.h),
       padding: EdgeInsets.all(22.w),
       decoration: BoxDecoration(
         color: const Color(0xFF0E2515), // Matching cards from UI
         borderRadius: BorderRadius.circular(18.r),
-        border: Border.all(
-          color: Colors.white.withOpacity(0.02),
-          width: 0.5.w,
-        ),
+        border: Border.all(color: Colors.white.withOpacity(0.02), width: 0.5.w),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -322,8 +358,12 @@ class SearchScreen extends StatelessWidget {
               GestureDetector(
                 onTap: () => controller.toggleBookmark(index),
                 child: Icon(
-                  result['isBookmarked'] ? Icons.bookmark : Icons.bookmark_border,
-                  color: result['isBookmarked'] ? AppColors.primaryText : const Color(0xFF1B5E34),
+                  result['isBookmarked']
+                      ? Icons.bookmark
+                      : Icons.bookmark_border,
+                  color: result['isBookmarked']
+                      ? AppColors.primaryText
+                      : const Color(0xFF1B5E34),
                   size: 26.sp,
                 ),
               ),
@@ -334,7 +374,8 @@ class SearchScreen extends StatelessWidget {
             alignment: Alignment.centerRight,
             child: Text(
               result['arabic'],
-              style: GoogleFonts.amiri( // Using Amiri for elegant Arabic
+              style: GoogleFonts.amiri(
+                // Using Amiri for elegant Arabic
                 color: Colors.white,
                 fontSize: 22.sp,
                 height: 1.8,
@@ -378,10 +419,15 @@ class SearchScreen extends StatelessWidget {
         spans.add(TextSpan(text: text.substring(start, index)));
       }
 
-      spans.add(TextSpan(
-        text: text.substring(index, index + query.length),
-        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-      ));
+      spans.add(
+        TextSpan(
+          text: text.substring(index, index + query.length),
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      );
 
       start = index + query.length;
     }
@@ -405,7 +451,10 @@ class SearchScreen extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 10.h),
           child: Text(
             "No recent searches",
-            style: GoogleFonts.montserrat(color: Colors.white30, fontSize: 13.sp),
+            style: GoogleFonts.montserrat(
+              color: Colors.white30,
+              fontSize: 13.sp,
+            ),
           ),
         );
       }
@@ -456,7 +505,7 @@ class SearchScreen extends StatelessWidget {
               right: -35.w,
               bottom: -50.h,
               child: SvgPicture.asset(
-                AppIcons.bock, 
+                AppIcons.bock,
                 width: 145.w,
                 colorFilter: const ColorFilter.mode(
                   Color(0xFF1B5E34), // Subtle highlight green
@@ -489,7 +538,10 @@ class SearchScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 25.h),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 12.h),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 22.w,
+                      vertical: 12.h,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(100.r),

@@ -46,7 +46,10 @@ class HighlightScreen extends StatelessWidget {
                   physics: const AlwaysScrollableScrollPhysics(
                     parent: BouncingScrollPhysics(),
                   ),
-                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20.w,
+                    vertical: 10.h,
+                  ),
                   itemCount: list.length,
                   itemBuilder: (context, index) {
                     final highlight = list[index];
@@ -83,7 +86,7 @@ class HighlightScreen extends StatelessWidget {
       actions: [
         IconButton(
           icon: const Icon(Icons.search, color: Colors.white70),
-          onPressed: () {},
+          onPressed: () => Get.toNamed('/search'),
         ),
         SizedBox(width: 10.w),
       ],
@@ -105,7 +108,8 @@ class HighlightScreen extends StatelessWidget {
       child: Row(
         children: filters.map((filter) {
           return Obx(() {
-            final isSelected = controller.selectedFilter.value == filter['label'];
+            final isSelected =
+                controller.selectedFilter.value == filter['label'];
             final filterColor = filter['color'] as Color;
             return GestureDetector(
               onTap: () => controller.setFilter(filter['label'] as String),
@@ -140,9 +144,13 @@ class HighlightScreen extends StatelessWidget {
                     Text(
                       filter['label'] as String,
                       style: GoogleFonts.montserrat(
-                        color: isSelected ? Colors.white : AppColors.textSecondary,
+                        color: isSelected
+                            ? Colors.white
+                            : AppColors.textSecondary,
                         fontSize: 14.sp,
-                        fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                        fontWeight: isSelected
+                            ? FontWeight.w700
+                            : FontWeight.w500,
                       ),
                     ),
                   ],
@@ -160,12 +168,11 @@ class HighlightScreen extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 20.h),
       padding: EdgeInsets.all(20.w),
       decoration: BoxDecoration(
-        color: const Color(0xFF16251A).withOpacity(0.8), // Darker green card background
+        color: const Color(
+          0xFF16251A,
+        ).withOpacity(0.8), // Darker green card background
         borderRadius: BorderRadius.circular(25.r),
-        border: Border.all(
-          color: Colors.white.withOpacity(0.05),
-          width: 1.w,
-        ),
+        border: Border.all(color: Colors.white.withOpacity(0.05), width: 1.w),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -227,7 +234,7 @@ class HighlightScreen extends StatelessWidget {
                       color: highlight.highlightColor.withOpacity(0.3),
                       blurRadius: 4.r,
                       spreadRadius: 1,
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -241,10 +248,7 @@ class HighlightScreen extends StatelessWidget {
             padding: EdgeInsets.only(left: 14.w),
             decoration: BoxDecoration(
               border: Border(
-                left: BorderSide(
-                  color: highlight.highlightColor,
-                  width: 3.5.w,
-                ),
+                left: BorderSide(color: highlight.highlightColor, width: 3.5.w),
               ),
             ),
             child: Container(
