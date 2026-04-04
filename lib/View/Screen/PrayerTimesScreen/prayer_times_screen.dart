@@ -119,103 +119,121 @@ class PrayerTimesScreen extends StatelessWidget {
   Widget _buildNextPrayerCard() {
     return Container(
       width: double.infinity,
-      height: 185.h,
+      height: 196.h,
+      padding: EdgeInsets.all(32.w),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            const Color(0xFF1B5E34).withOpacity(0.6),
-            const Color(0xFF0D2517).withOpacity(0.9),
+            Color(0xFFA2D1BB), // Light green from Figma
+            Color(0xFF0F3D2E), // Dark green from Figma
           ],
         ),
-        borderRadius: BorderRadius.circular(30.r),
+        borderRadius: BorderRadius.circular(32.r),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF22C55E).withOpacity(0.1),
+            color: const Color(0xFFA2D1BB).withOpacity(0.1), // 10% Drop shadow
             blurRadius: 20,
-            offset: const Offset(0, 5),
+            offset: const Offset(0, 0),
           )
         ],
+        border: Border.all(
+          color: const Color(0xFFA2D1BB).withOpacity(0.3), // Simulating inner shadow/highlight
+          width: 0.5.w,
+        ),
       ),
       child: Stack(
+        clipBehavior: Clip.none,
         children: [
           // Background Decorative Arches
           Positioned(
-            right: -30.w,
-            bottom: -30.h,
+            right: -50.w,
+            bottom: -50.h,
             child: Opacity(
-              opacity: 0.1,
-              child: SvgPicture.asset(AppIcons.mainContentWrapper, width: 220.w),
+              opacity: 0.08,
+              child: SvgPicture.asset(AppIcons.mainContentWrapper, width: 250.w),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.all(25.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'NEXT PRAYER',
-                      style: GoogleFonts.montserrat(
-                        color: const Color(0xFF22C55E),
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 0.8,
-                      ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'NEXT PRAYER',
+                    style: GoogleFonts.montserrat(
+                      color: const Color(0xFF0D1D13).withOpacity(0.6),
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 0.8,
                     ),
-                    Text(
-                      '12:15 PM',
-                      style: GoogleFonts.amiri(
-                        color: const Color(0xFF162A1E),
-                        fontSize: 32.sp,
-                        fontWeight: FontWeight.w700,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    textBaseline: TextBaseline.alphabetic,
+                    children: [
+                      Text(
+                        '12:15',
+                        style: GoogleFonts.amiri(
+                          color: const Color(0xFF0D1D13).withOpacity(0.7),
+                          fontSize: 32.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
+                      SizedBox(width: 4.w),
+                      Text(
+                        'PM',
+                        style: GoogleFonts.montserrat(
+                          color: const Color(0xFF0D1D13).withOpacity(0.5),
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Dhuhr',
+                    style: GoogleFonts.amiri(
+                      color: const Color(0xFF0D1D13),
+                      fontSize: 52.sp,
+                      fontWeight: FontWeight.w700,
+                      height: 0.9,
                     ),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Dhuhr',
-                      style: GoogleFonts.amiri(
-                        color: const Color(0xFF0D1D13),
-                        fontSize: 48.sp,
-                        fontWeight: FontWeight.w700,
-                        height: 1,
-                      ),
+                  ),
+                  SizedBox(height: 15.h),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF0D1D13).withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(100.r),
                     ),
-                    SizedBox(height: 12.h),
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 8.h),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF0D1D13).withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(100.r),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.access_time, size: 14.sp, color: const Color(0xFF0D1D13)),
-                          SizedBox(width: 8.w),
-                          Text(
-                            "in 2h 15m",
-                            style: GoogleFonts.montserrat(
-                              color: const Color(0xFF0D1D13),
-                              fontSize: 13.sp,
-                              fontWeight: FontWeight.w700,
-                            ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.access_time, size: 16.sp, color: const Color(0xFF0D1D13)),
+                        SizedBox(width: 8.w),
+                        Text(
+                          "in 2h 15m",
+                          style: GoogleFonts.montserrat(
+                            color: const Color(0xFF0D1D13),
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w700,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ],
       ),
