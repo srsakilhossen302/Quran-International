@@ -59,10 +59,8 @@ class SearchScreen extends StatelessWidget {
       backgroundColor: Colors.transparent,
       elevation: 0,
       scrolledUnderElevation: 0,
-      leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: Colors.white70),
-        onPressed: () => Get.back(),
-      ),
+      automaticallyImplyLeading: false,
+      centerTitle: true,
       title: Text(
         'Search',
         style: GoogleFonts.montserrat(
