@@ -63,6 +63,13 @@ class SearchController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    // Check for initial query from navigation arguments
+    final String? initialQuery = Get.arguments?['query'];
+    if (initialQuery != null && initialQuery.isNotEmpty) {
+      searchController.text = initialQuery;
+      searchQuery.value = initialQuery;
+    }
+
     // Debounce search query to simulate network request and show shimmer
     _debounceWorker = debounce(
       searchQuery,

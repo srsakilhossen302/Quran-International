@@ -121,6 +121,12 @@ class HomeScreen extends StatelessWidget {
       child: TextField(
         cursorColor: const Color(0xFF22C55E),
         style: GoogleFonts.montserrat(color: Colors.white, fontSize: 16.sp),
+        textInputAction: TextInputAction.search,
+        onSubmitted: (value) {
+          if (value.isNotEmpty) {
+            Get.toNamed('/search', arguments: {'query': value});
+          }
+        },
         decoration: InputDecoration(
           hintText: 'Search Surah, Juz, or Ayat',
           hintStyle: GoogleFonts.montserrat(
