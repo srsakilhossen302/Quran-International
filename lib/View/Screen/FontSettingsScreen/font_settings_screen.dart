@@ -108,9 +108,9 @@ class FontSettingsScreen extends StatelessWidget {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: const Color(0xFF0D1D13),
+        color: const Color(0xFF0D1E15), // Dark green background
         borderRadius: BorderRadius.circular(25.r),
-        border: Border.all(color: Colors.white.withOpacity(0.05)),
+        border: Border.all(color: Colors.white.withOpacity(0.04)),
       ),
       child: Column(
         children: [
@@ -121,7 +121,7 @@ class FontSettingsScreen extends StatelessWidget {
                 Image.asset(
                   'assets/images/Image+Overlay.png',
                   width: double.infinity,
-                  height: 160.h,
+                  height: 128.h,
                   fit: BoxFit.cover,
                 ),
                 Positioned.fill(
@@ -130,10 +130,11 @@ class FontSettingsScreen extends StatelessWidget {
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
+                        stops: const [0.0, 0.45, 1.0],
                         colors: [
                           Colors.transparent,
-                          const Color(0xFF0D1D13).withOpacity(0.8),
-                          const Color(0xFF0D1D13),
+                          const Color(0xFF0D1E15).withOpacity(0.6),
+                          const Color(0xFF0D1E15),
                         ],
                       ),
                     ),
@@ -143,35 +144,35 @@ class FontSettingsScreen extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(25.w, 0, 25.w, 30.h),
+            padding: EdgeInsets.fromLTRB(25.w, 0, 25.w, 35.h),
             child: Column(
               children: [
                 Text(
                   "SURAH AL-FATIHAH • VERSE 1",
                   style: GoogleFonts.montserrat(
                     color: const Color(0xFF328A44),
-                    fontSize: 11.sp,
+                    fontSize: 10.sp,
                     fontWeight: FontWeight.w700,
-                    letterSpacing: 0.5,
+                    letterSpacing: 0.8,
                   ),
                 ),
-                SizedBox(height: 20.h),
+                SizedBox(height: 25.h),
                 Obx(() => Text(
                   "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ",
                   textAlign: TextAlign.center,
                   style: GoogleFonts.amiri(
                     color: Colors.white,
                     fontSize: controller.arabicFontSize.value.sp,
-                    height: 1.6,
+                    height: 1.4,
                     fontWeight: FontWeight.bold,
                   ),
                 )),
-                SizedBox(height: 20.h),
+                SizedBox(height: 25.h),
                 Obx(() => Text(
                   "\"In the name of Allah, the Entirely Merciful, the Especially Merciful.\"",
                   textAlign: TextAlign.center,
                   style: GoogleFonts.montserrat(
-                    color: const Color(0xFFB5C1B8),
+                    color: const Color(0xFF8DA493), // Softer green/grey from screenshot
                     fontSize: controller.translationFontSize.value.sp,
                     height: 1.5,
                     fontWeight: FontWeight.w500,
