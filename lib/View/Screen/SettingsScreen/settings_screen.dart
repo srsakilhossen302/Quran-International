@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -61,7 +62,7 @@ class SettingsScreen extends StatelessWidget {
             _buildSettingItem(
               icon: AppIcons.fontSettings,
               title: "Font Settings",
-              onTap: () {},
+              onTap: () => Get.toNamed('/font_settings'),
             ),
             _buildSettingItem(
               icon: AppIcons.mushafType,
