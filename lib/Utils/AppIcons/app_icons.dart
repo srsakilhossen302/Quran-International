@@ -27,4 +27,12 @@ class AppIcons {
   static const String faq = 'assets/icons/FAQ-Icons.svg';
   static const String about = 'assets/icons/About Quran App-Icons.svg';
   static const String logout = 'assets/icons/Log Out-Icons.svg';
+
+  // Prayer Icons
+  static const String iconFajr = 'assets/icons/Fajr-Icons.svg';
+  static const String iconDhuhr = 'assets/icons/Dhuhr-Icons.svg';
+  static const String iconAsr = 'assets/icons/Asr-Icons.svg';
+  static const String iconIsha = 'assets/icons/Isha-Icons.svg';
+  static const String iconSound = 'assets/icons/Sound-Icons.svg';
+  static const String iconStar = 'assets/icons/star-icons.svg';
 }

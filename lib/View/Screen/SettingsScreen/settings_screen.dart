@@ -51,6 +51,11 @@ class SettingsScreen extends StatelessWidget {
               switchValue: true,
               onChanged: (val) {},
             ),
+            _buildSettingItem(
+              icon: AppIcons.time,
+              title: "Prayer Times",
+              onTap: () => Get.toNamed('/prayer_times'),
+            ),
             SizedBox(height: 35.h),
             _buildSectionHeader("DISPLAY"),
             _buildSettingItem(
