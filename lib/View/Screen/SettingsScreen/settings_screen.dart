@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,10 +16,8 @@ class SettingsScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white70),
-          onPressed: () => Get.back(),
-        ),
+        scrolledUnderElevation: 0,
+        automaticallyImplyLeading: false,
         title: Text(
           'Settings',
           style: GoogleFonts.montserrat(
@@ -74,11 +71,7 @@ class SettingsScreen extends StatelessWidget {
             ),
             SizedBox(height: 35.h),
             _buildSectionHeader("SUPPORT"),
-            _buildSettingItem(
-              icon: AppIcons.faq,
-              title: "FAQ",
-              onTap: () {},
-            ),
+            _buildSettingItem(icon: AppIcons.faq, title: "FAQ", onTap: () {}),
             _buildSettingItem(
               icon: AppIcons.about,
               title: "About Quran App",
@@ -193,7 +186,7 @@ class SettingsScreen extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(10.w),
               decoration: BoxDecoration(
-                color: isDestructive 
+                color: isDestructive
                     ? Colors.red.withOpacity(0.08)
                     : const Color(0xFF0D2517),
                 borderRadius: BorderRadius.circular(12.r),
@@ -212,7 +205,9 @@ class SettingsScreen extends StatelessWidget {
               child: Text(
                 title,
                 style: GoogleFonts.montserrat(
-                  color: isDestructive ? Colors.redAccent : Colors.white.withOpacity(0.9),
+                  color: isDestructive
+                      ? Colors.redAccent
+                      : Colors.white.withOpacity(0.9),
                   fontSize: 15.sp,
                   fontWeight: FontWeight.w600,
                 ),
