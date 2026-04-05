@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../../Utils/AppColors/app_colors.dart';
-import '../../../../Utils/Constants/app_languages.dart';
+import 'package:quran_international/Utils/AppColors/app_colors.dart';
+import 'package:quran_international/Utils/Constants/app_languages.dart';
 import '../HomeScreen/home_screen.dart';
 
 class LanguageScreen extends StatefulWidget {
