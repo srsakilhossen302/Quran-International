@@ -32,7 +32,7 @@ class ReadingScreen extends GetView<ReadingController> {
                       itemCount: controller.ayahs.length,
                       itemBuilder: (context, index) {
                         final ayah = controller.ayahs[index];
-                        return _buildAyahTile(ayah, index == 0);
+                        return _buildAyahTile(ayah, index);
                       },
                     )),
                 SizedBox(height: 40.h),
@@ -178,33 +178,53 @@ class ReadingScreen extends GetView<ReadingController> {
     );
   }
 
-  Widget _buildAyahTile(Map<String, String> ayah, bool isActive) {
+  Widget _buildAyahTile(Map<String, String> ayah, int index) {
+    final bool isActive = index == 0;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Stack(
+            clipBehavior: Clip.none,
+            alignment: Alignment.centerRight,
             children: [
-              Text(
-                ayah['number']!,
-                style: GoogleFonts.montserrat(
-                  color: const Color(0xFF38FF7E),
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _actionIcon('assets/icons/Save-Icons.svg'),
-                  SizedBox(width: 20.w),
-                  _actionIcon('assets/icons/Edit-Icons.svg'),
-                  SizedBox(width: 20.w),
-                  _actionIcon('assets/icons/copy-icons.svg'),
-                  SizedBox(width: 20.w),
-                  Icon(Icons.share_outlined, color: const Color(0xFF7F9285), size: 22.sp),
+                  Text(
+                    ayah['number']!,
+                    style: GoogleFonts.montserrat(
+                      color: const Color(0xFF38FF7E),
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      _actionIcon('assets/icons/Save-Icons.svg'),
+                      SizedBox(width: 20.w),
+                      GestureDetector(
+                        onTap: () {
+                          controller.toggleHighlighter(index);
+                        },
+                        behavior: HitTestBehavior.opaque,
+                        child: _actionIcon('assets/icons/Edit-Icons.svg'),
+                      ),
+                      SizedBox(width: 20.w),
+                      _actionIcon('assets/icons/copy-icons.svg'),
+                      SizedBox(width: 20.w),
+                      Icon(Icons.share_outlined, color: const Color(0xFF7F9285), size: 22.sp),
+                    ],
+                  ),
                 ],
+              ),
+              Positioned(
+                top: -50.h,
+                right: 0,
+                child: Obx(() => controller.selectedHighlighterIndex.value == index
+                    ? _buildHighlighterMenu()
+                    : const SizedBox.shrink()),
               ),
             ],
           ),
@@ -251,12 +271,64 @@ class ReadingScreen extends GetView<ReadingController> {
     );
   }
 
-  Widget _actionIcon(String asset) {
+  Widget _buildHighlighterMenu() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1E272E),
+        borderRadius: BorderRadius.circular(30.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.5),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          )
+        ],
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _colorCircle(const Color(0xFFFFD700)), // Yellow
+          SizedBox(width: 10.w),
+          _colorCircle(const Color(0xFF4ADE80)), // Green
+          SizedBox(width: 10.w),
+          _colorCircle(const Color(0xFF3B82F6)), // Blue
+          SizedBox(width: 10.w),
+          _colorCircle(const Color(0xFFF43F5E)), // Pink
+          Container(
+            height: 24.h,
+            width: 1,
+            color: Colors.white12,
+            margin: EdgeInsets.symmetric(horizontal: 12.w),
+          ),
+          Icon(Icons.share_outlined, color: Colors.white, size: 20.sp),
+          SizedBox(width: 12.w),
+          _actionIcon('assets/icons/copy-icons.svg', color: Colors.white, size: 20),
+        ],
+      ),
+    );
+  }
+
+  Widget _colorCircle(Color color) {
+    return Container(
+      width: 24.w,
+      height: 24.w,
+      decoration: BoxDecoration(
+        color: color,
+        shape: BoxShape.circle,
+      ),
+    );
+  }
+
+  Widget _actionIcon(String asset, {Color? color, double? size}) {
     return SvgPicture.asset(
       asset,
-      width: 22.w,
-      height: 22.w,
-      colorFilter: const ColorFilter.mode(Color(0xFF7F9285), BlendMode.srcIn),
+      width: (size ?? 22).w,
+      height: (size ?? 22).w,
+      colorFilter: ColorFilter.mode(
+        color ?? const Color(0xFF7F9285),
+        BlendMode.srcIn,
+      ),
     );
   }
 }

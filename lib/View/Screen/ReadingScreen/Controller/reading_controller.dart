@@ -26,6 +26,17 @@ class ReadingController extends GetxController {
     }
   ].obs;
 
+  // Highlighter state
+  final RxInt selectedHighlighterIndex = (-1).obs;
+
+  void toggleHighlighter(int index) {
+    if (selectedHighlighterIndex.value == index) {
+      selectedHighlighterIndex.value = -1;
+    } else {
+      selectedHighlighterIndex.value = index;
+    }
+  }
+
   @override
   void onInit() {
     super.onInit();
