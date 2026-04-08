@@ -312,84 +312,87 @@ class HomeScreen extends StatelessWidget {
           final bool isHighlighted =
               surah.id == 2; // Al-Baqarah is highlighted in the image
 
-          return Container(
-            margin: EdgeInsets.only(bottom: 12.h),
-            width: 408.w,
-            height: 82.h, // Specific height from Figma
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            decoration: BoxDecoration(
-              color: const Color(
-                0xFF0A2E15,
-              ).withOpacity(0.4), // #0A2E15 40% Fill
-              borderRadius: BorderRadius.circular(24.r), // 24px Radius
-              border: Border.all(
+          return GestureDetector(
+            onTap: () => Get.toNamed('/reading', arguments: surah),
+            child: Container(
+              margin: EdgeInsets.only(bottom: 12.h),
+              width: 408.w,
+              height: 82.h, // Specific height from Figma
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              decoration: BoxDecoration(
                 color: const Color(
-                  0xFF22C55E,
-                ).withOpacity(0.2), // #22C55E 20% Border
-                width: 1.w,
-              ),
-              boxShadow: [
-                BoxShadow(
+                  0xFF0A2E15,
+                ).withOpacity(0.4), // #0A2E15 40% Fill
+                borderRadius: BorderRadius.circular(24.r), // 24px Radius
+                border: Border.all(
                   color: const Color(
                     0xFF22C55E,
-                  ).withOpacity(0.1), // #22C55E 10% Shadow
-                  blurRadius: 15.r,
-                  offset: const Offset(0, 0),
+                  ).withOpacity(0.2), // #22C55E 20% Border
+                  width: 1.w,
                 ),
-              ],
-            ),
-            child: Row(
-              children: [
-                _buildSurahBadge(surah.id, true),
-                SizedBox(width: 16.w),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment:
-                        MainAxisAlignment.center, // Center vertically
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            surah.enName,
-                            style: GoogleFonts.montserrat(
-                              color: Colors.white,
-                              fontSize: 16.sp, // Adjusted to fit 82.h
-                              fontWeight: FontWeight.w700,
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(
+                      0xFF22C55E,
+                    ).withOpacity(0.1), // #22C55E 10% Shadow
+                    blurRadius: 15.r,
+                    offset: const Offset(0, 0),
+                  ),
+                ],
+              ),
+              child: Row(
+                children: [
+                  _buildSurahBadge(surah.id, true),
+                  SizedBox(width: 16.w),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment:
+                          MainAxisAlignment.center, // Center vertically
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              surah.enName,
+                              style: GoogleFonts.montserrat(
+                                color: Colors.white,
+                                fontSize: 16.sp, // Adjusted to fit 82.h
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
-                          ),
-                          if (isHighlighted) ...[
-                            SizedBox(width: 6.w),
-                            Icon(
-                              Icons.flare,
-                              color: const Color(0xFF38FF7E),
-                              size: 12.sp,
-                            ),
+                            if (isHighlighted) ...[
+                              SizedBox(width: 6.w),
+                              Icon(
+                                Icons.flare,
+                                color: const Color(0xFF38FF7E),
+                                size: 12.sp,
+                              ),
+                            ],
                           ],
-                        ],
-                      ),
-                      SizedBox(height: 2.h),
-                      Text(
-                        '${surah.type.toUpperCase()} • ${surah.verses} VERSES',
-                        style: GoogleFonts.montserrat(
-                          color: const Color(0xFF7F9285),
-                          fontSize: 11.sp, // Adjusted to fit 82.h
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 0.5,
                         ),
-                      ),
-                    ],
+                        SizedBox(height: 2.h),
+                        Text(
+                          '${surah.type.toUpperCase()} • ${surah.verses} VERSES',
+                          style: GoogleFonts.montserrat(
+                            color: const Color(0xFF7F9285),
+                            fontSize: 11.sp, // Adjusted to fit 82.h
+                            fontWeight: FontWeight.w500,
+                            letterSpacing: 0.5,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Text(
-                  surah.arName,
-                  style: TextStyle(
-                    color: const Color(0xFF38FF7E),
-                    fontSize: 22.sp, // Adjusted to fit 82.h
-                    fontWeight: FontWeight.w700,
+                  Text(
+                    surah.arName,
+                    style: TextStyle(
+                      color: const Color(0xFF38FF7E),
+                      fontSize: 22.sp, // Adjusted to fit 82.h
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         },

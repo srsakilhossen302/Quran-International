@@ -10,6 +10,8 @@ import 'package:quran_international/View/Screen/SearchScreen/search_screen.dart'
 import 'package:quran_international/View/Screen/SettingsScreen/settings_screen.dart';
 import 'package:quran_international/View/Screen/FontSettingsScreen/font_settings_screen.dart';
 import 'package:quran_international/View/Screen/PrayerTimesScreen/prayer_times_screen.dart';
+import 'package:quran_international/View/Screen/ReadingScreen/reading_screen.dart';
+import 'package:quran_international/View/Screen/ReadingScreen/Controller/reading_controller.dart';
 
 import 'package:quran_international/Utils/AppColors/app_colors.dart';
 
@@ -51,6 +53,13 @@ class MyApp extends StatelessWidget {
             GetPage(name: '/settings', page: () => const SettingsScreen()),
             GetPage(name: '/font_settings', page: () => const FontSettingsScreen()),
             GetPage(name: '/prayer_times', page: () => const PrayerTimesScreen()),
+            GetPage(
+              name: '/reading',
+              page: () => const ReadingScreen(),
+              binding: BindingsBuilder(() {
+                Get.lazyPut<ReadingController>(() => ReadingController());
+              }),
+            ),
           ],
         );
       },
