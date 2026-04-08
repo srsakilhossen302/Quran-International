@@ -52,32 +52,41 @@ class CustomBottomNavBar extends StatelessWidget {
         ],
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _navItem(
-            'assets/icons/Home_Icons-navbar.svg',
-            "HOME",
-            0,
+          Expanded(
+            child: _navItem(
+              'assets/icons/Home_Icons-navbar.svg',
+              "HOME",
+              0,
+            ),
           ),
-          _navItem(
-            'assets/icons/Search_Icons-navbar.svg',
-            "SEARCH",
-            1,
+          Expanded(
+            child: _navItem(
+              'assets/icons/Search_Icons-navbar.svg',
+              "SEARCH",
+              1,
+            ),
           ),
-          _navItem(
-            'assets/icons/Bookmarks_Icons-navbar.svg',
-            "BOOKMARKS",
-            2,
+          Expanded(
+            child: _navItem(
+              'assets/icons/Bookmarks_Icons-navbar.svg',
+              "BOOKMARKS",
+              2,
+            ),
           ),
-          _navItem(
-            'assets/icons/Highlights_Icons-navbar.svg',
-            "HIGHLIGHTS",
-            3,
+          Expanded(
+            child: _navItem(
+              'assets/icons/Highlights_Icons-navbar.svg',
+              "HIGHLIGHTS",
+              3,
+            ),
           ),
-          _navItem(
-            'assets/icons/Settings_Icons-navbar.svg',
-            "SETTINGS",
-            4,
+          Expanded(
+            child: _navItem(
+              'assets/icons/Settings_Icons-navbar.svg',
+              "SETTINGS",
+              4,
+            ),
           ),
         ],
       ),
@@ -92,7 +101,7 @@ class CustomBottomNavBar extends StatelessWidget {
       behavior: HitTestBehavior.opaque, // To capture clicks more easily
       child: Container(
         // Add a transparent rectangle to increase tap area without visible splash
-        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+        padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 10.h),
         color: Colors.transparent, 
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -109,6 +118,9 @@ class CustomBottomNavBar extends StatelessWidget {
             SizedBox(height: 8.h),
             Text(
               label,
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: GoogleFonts.montserrat(
                 fontSize: 10.sp,
                 color: isActive ? const Color(0xFF22C55E) : const Color(0xFF7F9285),
