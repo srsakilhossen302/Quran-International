@@ -329,7 +329,7 @@ class PrayerTimesScreen extends StatelessWidget {
         border: Border.all(color: Colors.white.withOpacity(0.1)),
       ),
       child: InkWell(
-        onTap: () {},
+        onTap: () => Get.toNamed('/adhan_recitations'),
         borderRadius: BorderRadius.circular(18.r),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

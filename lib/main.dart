@@ -12,6 +12,7 @@ import 'package:quran_international/View/Screen/FontSettingsScreen/font_settings
 import 'package:quran_international/View/Screen/PrayerTimesScreen/prayer_times_screen.dart';
 import 'package:quran_international/View/Screen/ReadingScreen/reading_screen.dart';
 import 'package:quran_international/View/Screen/ReadingScreen/Controller/reading_controller.dart';
+import 'package:quran_international/View/Screen/AdhanRecitationsScreen/adhan_recitations_screen.dart';
 
 import 'package:quran_international/Utils/AppColors/app_colors.dart';
 
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
                 Get.lazyPut<ReadingController>(() => ReadingController());
               }),
             ),
+            GetPage(name: '/adhan_recitations', page: () => const AdhanRecitationsScreen()),
           ],
         );
       },
