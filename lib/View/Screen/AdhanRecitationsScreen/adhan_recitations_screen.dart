@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quran_international/Utils/AppColors/app_colors.dart';
+import 'package:quran_international/View/Widget/CustomBottomNavBar/custom_bottom_nav_bar.dart';
 import 'Controller/adhan_recitations_controller.dart';
 
 class AdhanRecitationsScreen extends StatelessWidget {
@@ -64,6 +65,7 @@ class AdhanRecitationsScreen extends StatelessWidget {
           ),
         ],
       ),
+      bottomNavigationBar: const CustomBottomNavBar(selectedIndex: 4),
     );
   }
 
